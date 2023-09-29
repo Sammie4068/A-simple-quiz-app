@@ -1,3 +1,5 @@
+"use strict";
+
 const questionText = document.getElementById("question-text");
 const optionsContainer = document.querySelector(".options-container");
 const feedback = document.getElementById("feedback");
@@ -45,7 +47,11 @@ function displayQuestion() {
       const optionButton = document.createElement("button");
       optionButton.classList.add("option");
       optionButton.textContent = option;
-      optionButton.addEventListener("click", () => checkAnswer(option));
+      optionButton.addEventListener("click", () => {
+        checkAnswer(option);
+        if (option != currentQuestion.answer)
+          optionButton.classList.add("wrong");
+      });
       optionsContainer.appendChild(optionButton);
     });
 
@@ -53,8 +59,6 @@ function displayQuestion() {
     nextButton.style.display = "none";
   }
 }
-
-console.log();
 
 function checkAnswer(selectedOption) {
   if (playing) {
